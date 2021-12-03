@@ -1,0 +1,116 @@
+*{
+    text-align: center;
+    font-family: 'American Typicewriter', serif;
+}
+
+body{
+    background: url("https://media.istockphoto.com/photos/light-blue-color-frosted-glass-texture-background-picture-id864477890?k=20&m=864477890&s=170667a&w=0&h=788EIogpjJfQcCy3rY-IM6BLS7o-Kb3nKFngt35dBjc=");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+.textBox{
+    background:#AF7595;
+    box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 3);
+    padding-left: 10px;
+    padding-right: 15px;
+    border-radius: 15px;
+    display: inline-block;
+    
+}
+
+.Form{
+    margin: 30px;
+}
+
+#submit{
+    background: #75abaf;
+    border-radius: 10px;
+}
+
+#submit:hover{
+    cursor: pointer;
+}
+
+#formText{
+    display: inline-block;
+}
+
+
+#responceText{
+    margin-top: 100px;
+    background: #AF7595;
+    box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 3);
+    border-radius: 10px;
+    display: inline-block;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 150px;
+    padding-right: 150px;
+}
+
+#input:hover{
+    background: rgb(168, 223, 255);
+}
+
+.grid{
+    margin: 80px;
+    margin-top: 25px;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-gap: 30px;
+    align-items: center;
+    justify-items: center;
+}
+
+.grid > article{
+    /*background: rgb(148, 216, 255);*/
+
+    background: #AF7595;
+    border: none;
+    box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 3);
+    border-radius: 20px;
+    text-align: center;
+    width: 250px;
+    transition: transfrom .3s;
+}
+
+.grid > article:hover{
+    transform: translateY(5px);
+    box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 3);
+}
+
+.grid > article img{
+    width: 100%;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+
+.songText{
+    padding: 0 20px 20px;
+}
+
+.songTitle{
+    text-transform: uppercase;
+}
+
+@media (max-width: 768px){
+    .grid{
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px){
+    .grid{
+        grid-template-columns: repeat(1,1fr);
+    }
+
+    .grid > article{
+        text-align: center;
+    }
+}
+
+
+
