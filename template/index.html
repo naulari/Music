@@ -27,6 +27,14 @@
                     <img class="songImg" src="{{song1img}}" alt="">
                     <p class="songText"><span class="songTitle">{{ song1 }}</span><br />{{ song1artists }}
                     </p>
+                    <div data-video="{{VIDEO_ID}}"
+                            data-autoplay="0"
+                            data-loop="1"
+                            id="youtube-audio">
+                    </div>
+                    <script src="https://www.youtube.com/iframe_api"></script>
+                    <script src="https://cdn.rawgit.com/labnol/files/master/yt.js"></script>
+
                 </article>
 
                 <article>

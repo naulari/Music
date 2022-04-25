@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 import requests, json
 import config
+from pytube import Search
 app=Flask(__name__, template_folder='template')
 
 @app.route('/',methods =["POST", "GET"])
@@ -32,11 +33,23 @@ def get_songs():
         song2artists = obj["response"]["hits"][1]["result"]["artist_names"]
         song3artists = obj["response"]["hits"][2]["result"]["artist_names"]
 
+        song1audio = yt_music(song1,song1artists)
+
+
         return render_template("index.html", artist_name=artist, song1=song1, \
             song2 = song2, song3 = song3, song1img = song1img, song2img = song2img, \
-            song3img=song3img, song1artists=song1artists, song2artists=song2artists, song3artists=song3artists)
+            song3img=song3img, song1artists=song1artists, song2artists=song2artists, \
+            song3artists=song3artists, VIDEO_ID = song1audio)
     else:
         return render_template("index.html")
+
+def yt_music(song1,art1):
+    s1 = Search(song1 + " " + art1)
+    song1 = s1.results[0].video_id
+
+    return song1
+
+
 
 
 if __name__ == '__main__':
