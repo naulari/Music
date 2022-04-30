@@ -8,7 +8,7 @@ app=Flask(__name__, template_folder='template')
 def get_songs():
     if request.method == "POST":
         
-        artist = request.form.get("artist")
+        artist = "\""+ request.form.get("artist") + "\""
 
         url = "https://genius.p.rapidapi.com/search"
 
@@ -21,33 +21,40 @@ def get_songs():
 
         response = requests.request("GET", url, headers=headers, params=querystring)
         obj = response.json()
-        song1 = obj["response"]["hits"][0]["result"]["title"]
-        song2 = obj["response"]["hits"][1]["result"]["title"]
-        song3 = obj["response"]["hits"][2]["result"]["title"]
 
-        song1img = obj["response"]["hits"][0]["result"]["header_image_url"]
-        song2img = obj["response"]["hits"][1]["result"]["header_image_url"]
-        song3img = obj["response"]["hits"][2]["result"]["header_image_url"]
+        '''
+        counter = 0
+        while obj['response']['hits'][counter]['result']['primary_artist']['is_verified'] == False:
+            counter += 1
+            if counter >= len(obj['response']['hits']):
+                counter=0
+                break
+        artist=obj['response']['hits'][counter]['result']['primary_artist']['name']
+        '''
 
-        song1artists = obj["response"]["hits"][0]["result"]["artist_names"]
-        song2artists = obj["response"]["hits"][1]["result"]["artist_names"]
-        song3artists = obj["response"]["hits"][2]["result"]["artist_names"]
+        artistDic = {}
+        for i in range(10):
+            if obj["response"]['hits'][i]["result"]["primary_artist"]["name"] not in artistDic:
+                artistDic[obj["response"]['hits'][i]["result"]["primary_artist"]["name"]] = 1
+            else:
+                artistDic[obj["response"]['hits'][i]["result"]["primary_artist"]["name"]] += 1
 
-        song1audio = yt_music(song1,song1artists)
+        artist=max(artistDic, key=artistDic.get)
+    
+        infoDic = {'songs':[], 'artists':[],'imgs':[]}
 
+        for i in range(3):
+            infoDic['songs'].append(obj['response']['hits'][i]['result']['title'])
+            infoDic['artists'].append(obj['response']['hits'][i]['result']['artist_names'])
+            infoDic['imgs'].append(obj['response']['hits'][i]['result']["song_art_image_url"])
 
-        return render_template("index.html", artist_name=artist, song1=song1, \
-            song2 = song2, song3 = song3, song1img = song1img, song2img = song2img, \
-            song3img=song3img, song1artists=song1artists, song2artists=song2artists, \
-            song3artists=song3artists, VIDEO_ID = song1audio)
+        return render_template("index.html", artist_name=artist, song1 = infoDic['songs'][0], \
+            song2=infoDic['songs'][1], song3=infoDic['songs'][2], song1img=infoDic['imgs'][0], \
+            song2img=infoDic['imgs'][1], song3img=infoDic['imgs'][2], song1artists=infoDic['artists'][0],\
+            song2artists=infoDic['artists'][1], song3artists=infoDic['artists'][2],)
     else:
         return render_template("index.html")
 
-def yt_music(song1,art1):
-    s1 = Search(song1 + " " + art1)
-    song1 = s1.results[0].video_id
-
-    return song1
 
 
 
