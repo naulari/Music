@@ -25,23 +25,26 @@
             <main class="grid">
                 <article>
                     <img class="songImg" src="{{song1img}}" alt="">
-                    <p class="songText"><span class="songTitle">{{ song1 }}</span><br />{{ song1artists }}
-                    </p>
-                    <script src="https://www.youtube.com/iframe_api"></script>
-                    <script src="https://cdn.rawgit.com/labnol/files/master/yt.js"></script>
-
+                    <p class="songText"><span class="songTitle">{{ song1 }}</span><br />{{ song1artists }}</p>
+                    <audio controls> 
+                        <source src="{{song1url}}" type="audio/mpeg"> 
+                    </audio>
                 </article>
 
                 <article>
                     <img class="songImg" src="{{song2img}}" alt="">
-                    <p class="songText"><span class="songTitle">{{ song2 }}</span><br />{{ song2artists }}
-                    </p> 
+                    <p class="songText"><span class="songTitle">{{ song2 }}</span><br />{{ song2artists }}</p> 
+                    <audio controls> 
+                        <source src="{{song2url}}" type="audio/mpeg"> 
+                    </audio>
                 </article>
 
                 <article>
                     <img class="songImg" src="{{song3img}}" alt="">
-                    <p class="songText"><span class="songTitle">{{ song3 }}</span><br />{{ song3artists }}
-                    </p>
+                    <p class="songText"><span class="songTitle">{{ song3 }}</span><br />{{ song3artists }}</p>
+                    <audio controls> 
+                        <source src="{{song3url}}" type="audio/mpeg"> 
+                    </audio>
                 </article>
             </main>
             
