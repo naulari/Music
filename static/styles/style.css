@@ -96,6 +96,27 @@ body{
     text-transform: uppercase;
 }
 
+.btn{
+    position:absolute;
+    margin-top: -125px;
+    margin-left: 100px;
+}
+
+/*
+.grid > article button{
+    background: #555;
+    color: white;
+    font-size: 16px;
+    padding: 12px 24px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.card .btn:hover{
+    background: #000;
+}
+*/
 @media (max-width: 768px){
     .grid{
         grid-template-columns: repeat(2, 1fr);
