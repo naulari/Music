@@ -50,10 +50,8 @@ def get_songs():
         
 
         IDs = spotipyIDs(infoDict,artist)
-        print(IDs)
 
         URLs = spotipyPreview(IDs)
-        print(URLs)
 
         return render_template("index.html", artist_name=artist, song1 = infoDict['songs'][0], \
             song2=infoDict['songs'][1], song3=infoDict['songs'][2], song1img=infoDict['imgs'][0], \
