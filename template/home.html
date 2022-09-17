@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/style.css')}}">
+    <script src="{{url_for('static', filename='styles/script.js')}}"></script>
+</head>
+<body>
+    <div class=textBox>
+        <h1>Who is your favorite musical artist?</h1>
+    </div>
+
+    <form id="formText" action="{{ url_for('get_songs')}}" method="POST">
+        <input id="input" type="text" name="artist" required />
+    </form>
+    <button id=submit type="submit" form="formText" value="Submit"> Submit </button>
+</body>
+</html>

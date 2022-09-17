@@ -4,7 +4,15 @@ import requests, json, sys, spotipy
 import config
 app=Flask(__name__, template_folder='template')
 
-@app.route('/',methods =["POST", "GET"])
+@app.route('/', methods=['GET'])
+def index():
+    if request.method == 'POST':
+        get_songs()
+    else:
+        return render_template('home.html')
+
+
+@app.route('/results',methods =["POST", "GET"])
 def get_songs():
     if request.method == "POST":
         
@@ -83,6 +91,7 @@ def spotipyIDs(dict,artist):
     for i in range(3):
         results.append(sp.search(q='track:'+dict['songs'][i], type='track', limit=1))
     print(results)
+    '''
     for i in range(3):
         print(results[i]['tracks']['items'][0]['name'])
         print(results[i]['tracks']['items'][0]['album']['images'][0]['url'])
@@ -90,7 +99,7 @@ def spotipyIDs(dict,artist):
         print(results[i]['tracks']['items'][0]['preview_url'])
         print()
     print()
-
+    '''
     IDs = []
     for i in range(3):
         IDs.append(results[i]['tracks']['items'][0]['id'])
@@ -113,7 +122,7 @@ def spotipyPreview(IDs):
 
     URLs = []
     for i in range(3):
-        print(sp.track(IDs[i]))
+        #print(sp.track(IDs[i]))
         URLs.append(sp.track(IDs[i])['preview_url'])
 
     return URLs
@@ -134,10 +143,10 @@ def spotifyIDs(dict,artist):
         response = requests.request("GET", url, headers=headers, params=querystring)
         results.append(response.json())
     
-    for i in range(3):
-        print(results[i]['tracks']['items'][0]['data']['name'], file=sys.stdout)
-        print(results[i]['tracks']['items'][0]['data']['id'], file=sys.stdout)
-        print()
+    #for i in range(3):
+    #    print(results[i]['tracks']['items'][0]['data']['name'], file=sys.stdout)
+    #    print(results[i]['tracks']['items'][0]['data']['id'], file=sys.stdout)
+    #    print()
 
     IDs = []
     for i in range(3):
@@ -160,9 +169,9 @@ def spotifyPreview(IDs):
         response = requests.request("GET", url, headers=headers, params=querystring)
         results.append(response.json())
 
-    for i in range(3):
-        print(results[i]['tracks'][0]['preview_url'], file=sys.stdout)
-        print()
+    #for i in range(3):
+    #    print(results[i]['tracks'][0]['preview_url'], file=sys.stdout)
+    #    print()
     
     urls = []
     for i in range(3):

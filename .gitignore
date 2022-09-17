@@ -1,2 +1,4 @@
 config.py
-.cache
+*.cache
+*.code-workspace
+.DS_Store

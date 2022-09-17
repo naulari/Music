@@ -10,16 +10,6 @@
 </head>
 <body>
     <div class = "Container">
-        <div class=textBox>
-            <h1>
-                Who is Your Favorite Artist?
-                <form id="formText" action="{{ url_for('get_songs')}}" method="POST">
-                    <input id="input" type="text" name="artist" required />
-                </form>
-                <button id=submit type="submit" form="formText" value="Submit"> Submit </button>
-            </h1>
-        </div>
-
         <div id = "afterForm">
             <h2 id="responceText"> {{artist_name}}'s Top Three Songs Are </h2>
             <main class="grid">
