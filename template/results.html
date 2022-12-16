@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favorite Artist</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/style.css')}}">
+    <script src="{{url_for('static', filename='styles/script.js')}}"></script>
+</head>
+<body>
+    <div class = "Container">
+        <div id = "afterForm">
+            <h2 id="responceText"> {{artist_name}}'s Top Three Songs Are </h2>
+            <main class="grid">
+                <article>
+                    <img class="songImg" src="{{song1img}}" alt="">
+                    <p class="songText"><span class="songTitle">{{ song1 }}</span><br />{{ song1artists }}</p>
+                    <audio id="music1" controls> 
+                        <source src="{{song1url}}" type="audio/mpeg"> 
+                    </audio>
+                </article>
+
+                <article>
+                    <img class="songImg" src="{{song2img}}" alt="">
+                    <p class="songText"><span class="songTitle">{{ song2 }}</span><br />{{ song2artists }}</p> 
+                    <audio controls> 
+                        <source src="{{song2url}}" type="audio/mpeg"> 
+                    </audio>
+                </article>
+
+                <article>
+                    <img class="songImg" src="{{song3img}}" alt="">
+                    <p class="songText"><span class="songTitle">{{ song3 }}</span><br />{{ song3artists }}</p>
+                    <audio controls> 
+                        <source src="{{song3url}}" type="audio/mpeg"> 
+                    </audio>
+                </article>
+            </main>
+            
+        </div>
+    </div>   
+
+
+</body>
+</html>
