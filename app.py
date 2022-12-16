@@ -10,8 +10,48 @@ uri= config.redirect_uri
 oathmanager = SpotifyOAuth(client_id=cid, client_secret=secret, redirect_uri=uri)
 sp = spotipy.Spotify(oauth_manager=oathmanager) 
 
+@app.route('/', methods=["GET"])
+def home():
+    headers = {
+        'user-agent': 'Dataquest'
+    }
 
-@app.route('/',methods =["POST", "GET"])
+    payload = {
+        'api_key': config.lastfm_api_key,
+        'method': 'chart.gettopartists',
+        'format': 'json',
+        'limit': '3'
+    }
+
+    r = requests.get('http://ws.audioscrobbler.com/2.0/', headers=headers, params=payload)
+    data = r.json()
+
+    print(data)
+
+    url = "https://genius.p.rapidapi.com/search"
+
+    headers = {
+        'x-rapidapi-host': "genius.p.rapidapi.com",
+        'x-rapidapi-key': config.api_key
+    }
+
+    artistInfos = {'artists':[], 'imgs':[]}
+    for i in range(3):
+        artistInfos['artists'].append(data['artists']['artist'][i]['name'])
+
+        querystring = {"q": artistInfos['artists'][i]}
+
+        response = requests.request("GET", url , headers=headers, params=querystring)
+        obj = response.json()
+        artistInfos['imgs'].append(obj['response']['hits'][0]['result']['primary_artist']['image_url'])
+
+        
+
+    return render_template("home.html", artist1=artistInfos['artists'][0], artist2=artistInfos['artists'][1], \
+        artist3=artistInfos['artists'][2], artist1img=artistInfos['imgs'][0], artist2img=artistInfos['imgs'][1], \
+        artist3img=artistInfos['imgs'][2])
+
+@app.route('/results',methods =["POST", "GET"])
 def get_songs():
     if request.method == "POST":
         
@@ -47,13 +87,13 @@ def get_songs():
 
         URLs = spotipyPreview(infoDict, artist)
 
-        return render_template("index.html", artist_name=artist, song1 = infoDict['songs'][0], \
+        return render_template("results.html", artist_name=artist, song1 = infoDict['songs'][0], \
             song2=infoDict['songs'][1], song3=infoDict['songs'][2], song1img=infoDict['imgs'][0], \
             song2img=infoDict['imgs'][1], song3img=infoDict['imgs'][2], song1artists=infoDict['artists'][0],\
             song2artists=infoDict['artists'][1], song3artists=infoDict['artists'][2], song1url=URLs[0], \
             song2url=URLs[1], song3url=URLs[2])
     else:
-        return render_template("index.html")
+        return render_template("results.html")
 
 
 def spotipyPreview(dict, artist):

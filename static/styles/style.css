@@ -7,15 +7,34 @@ body{
     background-color: #d3e8fd;
 }
 
-
-.textBox{
+.textBox {
     background:#AF7595;
     box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 3);
     padding-left: 10px;
     padding-right: 15px;
     border-radius: 15px;
     display: inline-block;
-    
+}
+
+.textBox h1{
+    font-size: 40px;
+    overflow:hidden;
+    border-right: .15em solid #75abaf;
+    white-space: nowrap;
+    letter-spacing: .15em;
+    animation:
+        typing 3.5s steps(40,end),
+        blink-caret .75s step-end infinite;
+}
+
+@keyframes typing {
+    from { width: 0;} 
+    to { width: 100%; }
+}
+
+@keyframes blink-caret {
+    from, to {border-color: transparent;}
+    50% { border-color: transparent; }
 }
 
 .Form{
@@ -110,11 +129,11 @@ body{
     cursor: pointer;
     border-radius: 5px;
 }
-
 .card .btn:hover{
     background: #000;
 }
 */
+
 @media (max-width: 768px){
     .grid{
         grid-template-columns: repeat(2, 1fr);
@@ -130,6 +149,3 @@ body{
         text-align: center;
     }
 }
-
-
-
