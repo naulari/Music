@@ -4,6 +4,13 @@ import requests, spotipy
 import config
 app=Flask(__name__, template_folder='template')
 
+cid = config.client_id
+secret = config.client_secret
+uri= config.redirect_uri
+oathmanager = SpotifyOAuth(client_id=cid, client_secret=secret, redirect_uri=uri)
+sp = spotipy.Spotify(oauth_manager=oathmanager) 
+
+
 @app.route('/',methods =["POST", "GET"])
 def get_songs():
     if request.method == "POST":
@@ -38,8 +45,6 @@ def get_songs():
             infoDict['artists'].append(obj['response']['hits'][i]['result']['artist_names'])
             infoDict['imgs'].append(obj['response']['hits'][i]['result']["song_art_image_url"])
 
-        print(infoDict)
-
         URLs = spotipyPreview(infoDict, artist)
 
         return render_template("index.html", artist_name=artist, song1 = infoDict['songs'][0], \
@@ -52,25 +57,12 @@ def get_songs():
 
 
 def spotipyPreview(dict, artist):
-    cid = config.client_id
-    secret = config.client_secret
-    uri= config.redirect_uri
-    oathmanager = SpotifyOAuth(client_id=cid, client_secret=secret, redirect_uri=uri)
-    sp = spotipy.Spotify(oauth_manager=oathmanager) 
-
-
     URLs = []
     for s in dict['songs']:
-        print(s)
-        result = sp.search(q=f'track:{s}artist:{artist}',type='track', limit=1)
-        print(f"result:{result}")
+        result = sp.search(q=f'track:{s} artist:{artist}',type='track', limit=1)
         URLs.append(result['tracks']['items'][0]['preview_url'])
-
-    print(URLs)
 
     return URLs
 
-
-
 if __name__ == '__main__':
-    app.run(debug=True,port="8999")
+    app.run(debug=True,port="8990")
